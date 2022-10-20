@@ -1,3 +1,5 @@
+
+
 export function createMarkup(photos) {
   return photos
     .map(

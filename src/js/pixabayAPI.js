@@ -1,6 +1,7 @@
 import axios from 'axios';
 const URL = 'https://pixabay.com/api';
 const API_KEY = '30576193-c13648781b6f89bf6b7ef27da';
+
 export class pixabayAPI {
   #page = 1;
   #searchQuery = '';
@@ -22,6 +23,15 @@ export class pixabayAPI {
     return data;
   }
 
+
+  set totalPages(newtotalPages) {
+    this.#totalPages = newtotalPages;
+  }
+
+  get totalPages() {
+    return this.#totalPages;
+  }
+
   set searchQuery(newQuery) {
     this.#searchQuery = newQuery;
   }
@@ -40,7 +50,10 @@ export class pixabayAPI {
 
   calculateTotalPages(totalHits) {
     this.#totalPages = Math.ceil(totalHits / this.#perPage);
+
   }
+
+  
 
   get isShowLoadMore() {
     return this.#page < this.#totalPages;

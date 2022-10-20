@@ -4,4 +4,5 @@ export const refs = {
   btnSubmit: document.querySelector('button[type="submit"]'),
   galleryReg: document.querySelector('.gallery'),
   btnLoadMore: document.querySelector('button[type="button"]'),
+   container: document.querySelector('.tui-pagination'),
 };

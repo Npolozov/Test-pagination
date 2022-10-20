@@ -4,7 +4,12 @@ import { pixabayAPI } from './js/pixabayAPI';
 import { createMarkup } from './js/createMarkup';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
+import Pagination from 'tui-pagination';
+import 'tui-pagination/dist/tui-pagination.css';
+import { options } from './js/pagination';
 
+
+const pagination = new Pagination(refs.container, options);
 const pixabay = new pixabayAPI();
 
 let lightbox = new SimpleLightbox('.photo-card a', {
@@ -46,6 +51,16 @@ const handleSubmit = async event => {
 
     Notify.success(`Hooray! We found ${totalHits} images.`);
 
+    
+
+    // let total = pixabay.totalPages
+
+    // let numbers = []
+    // for (let number = 0; number < total; number++) 
+    // numbers.push(number)
+    // const createNum = numbers.map(num => `<div class="number">${num}</div>`).join('')
+    // refs.pagination.insertAdjacentHTML('beforeend', createNum);
+
     if (pixabay.isShowLoadMore) {
       refs.btnLoadMore.classList.remove('is-hidden');
     }
@@ -54,33 +69,6 @@ const handleSubmit = async event => {
     clearPage();
   }
 
-  // unsplash
-  //   .getPhotos()
-  //   .then(({ hits, totalHits }) => {
-  //     if (hits.length === 0) {
-  //       Notify.info(
-  //         'Sorry, there are no images matching your search query. Please try again.'
-  //       );
-  //       return;
-  //     }
-
-  //     const markup = createMarkup(hits);
-  //     refs.galleryReg.insertAdjacentHTML('beforeend', markup);
-
-  //     lightbox.refresh();
-
-  //     unsplash.calculateTotalPages(totalHits);
-
-  //     Notify.success(`Hooray! We found ${totalHits} images.`);
-
-  //     if (unsplash.isShowLoadMore) {
-  //       refs.btnLoadMore.classList.remove('is-hidden');
-  //     }
-  //   })
-  //   .catch(error => {
-  //     Notify.failure(error.message);
-  //     clearPage();
-  //   });
 };
 
 const loadMore = async event => {
@@ -110,17 +98,6 @@ const loadMore = async event => {
     clearPage();
   }
 
-  // unsplash
-  //   .getPhotos()
-  //   .then(({ hits }) => {
-  //     const markup = createMarkup(hits);
-  //     refs.galleryReg.insertAdjacentHTML('beforeend', markup);
-  //     lightbox.refresh();
-  //   })
-  //   .catch(error => {
-  //     Notify.failure(error.message);
-  //     clearPage();
-  //   });
 };
 
 function clearPage() {
@@ -128,6 +105,7 @@ function clearPage() {
   refs.galleryReg.innerHTML = '';
   refs.btnLoadMore.classList.add('is-hidden');
 }
+
 
 refs.form.addEventListener('submit', handleSubmit);
 refs.btnLoadMore.addEventListener('click', loadMore);
