@@ -9,7 +9,6 @@ import 'tui-pagination/dist/tui-pagination.css';
 import { options } from './js/pagination';
 
 
-const pagination = new Pagination(refs.container, options);
 const pixabay = new pixabayAPI();
 
 let lightbox = new SimpleLightbox('.photo-card a', {
@@ -49,7 +48,11 @@ const handleSubmit = async event => {
 
     pixabay.calculateTotalPages(totalHits);
 
+    console.log(pixabay.totalPages)
+
     Notify.success(`Hooray! We found ${totalHits} images.`);
+
+    const pagination = new Pagination(refs.container, options);
 
     
 

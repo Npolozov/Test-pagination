@@ -4,10 +4,10 @@ const pixabay = new pixabayAPI();
 
 
 export const options = { // below default value of options
-    totalItems: 13,
+    totalItems: Number(pixabay.totalPages),
     itemsPerPage: 1,
     visiblePages: 3,
-    page: pixabay.totalPages,
+    page: 1, 
     centerAlign: false,
     firstItemClassName: 'tui-first-child',
     lastItemClassName: 'tui-last-child',
