@@ -2,9 +2,7 @@ import { refs } from './js/refs';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { NewsApi } from './js/newsAPI';
 import { createMarkup } from './js/createMarkup';
-import Pagination from 'tui-pagination';
-import 'tui-pagination/dist/tui-pagination.css';
-import { options } from './js/pagination';
+import createPagination from './js/pagination';
 
 // refs.form.addEventListener('submit', rednerNews);
 // refs.btnLoadMore.addEventListener('click', loadMore);
@@ -70,18 +68,36 @@ const newsapi = new NewsApi();
 //   }
 // }
 
-rednerNews();
+window.addEventListener('load', rednerRage);
 
-async function rednerNews(e) {
+async function rednerRage() {
   try {
-    const { articles, totalResults } = await newsapi.fetchRender();
+    const { articles } = await newsapi.fetchRender();
+
+    const pagination = createPagination();
+
+    pagination.movePageTo(articles.page);
+    pagination.on('afterMove', event => {
+      console.log(event.page);
+      const currentPage = event.page;
+      console.log(currentPage);
+      rednerNews(currentPage);
+    });
+
+    // newsapi.calculateTotalPages(totalResults);
+  } catch (error) {
+    Notify.failure(error.message);
+    clearPage();
+  }
+}
+
+async function rednerNews(currentPage) {
+  try {
+    const { articles } = await newsapi.fetchRender(currentPage);
 
     const markup = createMarkup(articles);
     refs.galleryReg.insertAdjacentHTML('beforeend', markup);
-
-    newsapi.calculateTotalPages(totalResults);
-
-    const pagination = new Pagination(refs.container, options);
+    // newsapi.calculateTotalPages(totalResults);
   } catch (error) {
     Notify.failure(error.message);
     clearPage();

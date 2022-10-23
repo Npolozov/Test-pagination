@@ -1,12 +1,16 @@
-import { NewsApi } from './newsAPI';
-const newsapi = new NewsApi();
+import { refs } from './refs';
+// import { NewsApi } from './newsAPI';
+// const newsapi = new NewsApi();
+
+import Pagination from 'tui-pagination';
+import 'tui-pagination/dist/tui-pagination.css';
 
 export const options = {
-  totalItems: Number(newsapi.totalPages),
-  itemsPerPage: newsapi.pageSize,
+  totalItems: 100,
+  itemsPerPage: 15,
   visiblePages: 3,
   page: 1,
-  centerAlign: false,
+  centerAlign: true,
   firstItemClassName: 'tui-first-child',
   lastItemClassName: 'tui-last-child',
   template: {
@@ -27,3 +31,10 @@ export const options = {
       '</a>',
   },
 };
+
+const createPagination = () => {
+  const pagination = new Pagination(refs.container, options);
+  return pagination;
+};
+
+export default createPagination;

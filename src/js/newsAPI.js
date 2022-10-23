@@ -7,7 +7,7 @@ export class NewsApi {
   constructor() {
     this.query = 'cat';
     this.page = 1;
-    this.pageSize = 15;
+    // this.pageSize = 15;
     this.totalPages = '';
     this.params = {
       params: {
@@ -18,7 +18,7 @@ export class NewsApi {
   }
 
   async fetchRender() {
-    const url = `${URL}?q=${this.query}&pageSize=${this.pageSize}&page=${this.page}&apiKey=${API_KEY}`;
+    const url = `${URL}?q=${this.query}&page=${this.page}&apiKey=${API_KEY}`;
 
     const { data } = await axios.get(url);
     console.log(data);
@@ -43,16 +43,17 @@ export class NewsApi {
 
   incrementPage() {
     this.page += 1;
+    console.log(this.page);
   }
 
   resetPage() {
     this.page = 1;
   }
 
-  calculateTotalPages(totalResults) {
-    this.totalPages = Math.ceil(totalResults / this.pageSize);
-    console.log(this.totalPages);
-  }
+  // calculateTotalPages(totalResults) {
+  //   this.totalPages = Math.ceil(totalResults / this.pageSize);
+  //   console.log(this.totalPages);
+  // }
 
   get total() {
     return this.totalPages;
