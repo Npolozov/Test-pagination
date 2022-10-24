@@ -1,24 +1,26 @@
 import axios from 'axios';
 
-const API_KEY = '839e1f95d3ff4ebb9325eb7245b398c9';
-const URL = 'https://newsapi.org/v2/everything';
+const API_KEY = '30576193-c13648781b6f89bf6b7ef27da';
+const URL = 'https://pixabay.com/api';
 
 export class NewsApi {
   constructor() {
     this.query = 'cat';
     this.page = 1;
-    // this.pageSize = 15;
+    this.pageSize = 15;
     this.totalPages = '';
-    this.params = {
-      params: {
-        language: 'en',
-        sortBy: 'popularity',
-      },
-    };
+    // this.params = {
+    //   params: {
+    //     language: 'en',
+    //     sortBy: 'popularity',
+    //   },
+    // };
   }
 
   async fetchRender() {
-    const url = `${URL}?q=${this.query}&page=${this.page}&apiKey=${API_KEY}`;
+    // const url = `${URL}?q=${this.query}&page=${this.page}&apiKey=${API_KEY}`;
+
+    const url = `${URL}/?key=${API_KEY}&q=${this.query}&page=${this.page}`;
 
     const { data } = await axios.get(url);
     console.log(data);
@@ -43,16 +45,15 @@ export class NewsApi {
 
   incrementPage() {
     this.page += 1;
-    console.log(this.page);
   }
 
   resetPage() {
     this.page = 1;
   }
 
-  // calculateTotalPages(totalResults) {
-  //   this.totalPages = Math.ceil(totalResults / this.pageSize);
-  //   console.log(this.totalPages);
+  // calculateTotalPages(totalHits) {
+  //   this.totalPages = Math.ceil(totalHits / this.pageSize);
+
   // }
 
   get total() {

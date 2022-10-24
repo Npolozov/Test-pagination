@@ -2,20 +2,33 @@ export function createMarkup(news) {
   return news
     .map(
       ({
-        urlToImage,
-        author,
-        content,
-        description,
+        webformatURL,
+        largeImageURL,
+        tags,
+        likes,
+        views,
+        comments,
+        downloads,
       }) => `<div class="photo-card">
-    <img src="${urlToImage}" alt="${author}" loading="lazy" />
+    <a href="${largeImageURL}">        
+    <img src="${webformatURL}" alt="${tags}" loading="lazy" />
+    </a>
     <div class="info">
       <p class="info-item">
         <b>Likes:</b>
-         ${content}
+         ${likes}
       </p>
       <p class="info-item">
         <b>Views:</b>
-        ${description}
+        ${views}
+      </p>
+      <p class="info-item">
+        <b>Comments:</b>
+        ${comments}
+      </p>
+      <p class="info-item">
+        <b>Downloads:</b>
+        ${downloads}
       </p>
     </div>
     </div>`

@@ -72,14 +72,13 @@ window.addEventListener('load', rednerRage);
 
 async function rednerRage() {
   try {
-    const { articles } = await newsapi.fetchRender();
-
+    const { hits } = await newsapi.fetchRender();
+    // newsapi.calculateTotalPages(totalResults);
     const pagination = createPagination();
 
-    pagination.movePageTo(articles.page);
-    pagination.on('afterMove', event => {
-      console.log(event.page);
-      const currentPage = event.page;
+    pagination.movePageTo(hits.page);
+    pagination.on('afterMove', ({ page }) => {
+      const currentPage = page;
       console.log(currentPage);
       rednerNews(currentPage);
     });
@@ -87,15 +86,18 @@ async function rednerRage() {
     // newsapi.calculateTotalPages(totalResults);
   } catch (error) {
     Notify.failure(error.message);
-    clearPage();
   }
 }
 
-async function rednerNews(currentPage) {
-  try {
-    const { articles } = await newsapi.fetchRender(currentPage);
+async function rednerNews() {
+  newsapi.incrementPage();
 
-    const markup = createMarkup(articles);
+  console.log(sdcdvdscd);
+
+  clearPage();
+  try {
+    const { hits } = await newsapi.fetchRender();
+    const markup = createMarkup(hits);
     refs.galleryReg.insertAdjacentHTML('beforeend', markup);
     // newsapi.calculateTotalPages(totalResults);
   } catch (error) {
@@ -105,7 +107,5 @@ async function rednerNews(currentPage) {
 }
 
 function clearPage() {
-  newsapi.resetPage();
   refs.galleryReg.innerHTML = '';
-  refs.btnLoadMore.classList.add('is-hidden');
 }
