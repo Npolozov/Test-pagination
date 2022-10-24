@@ -69,17 +69,19 @@ const newsapi = new NewsApi();
 // }
 
 window.addEventListener('load', rednerRage);
+rednerNews();
 
 async function rednerRage() {
   try {
     const { hits } = await newsapi.fetchRender();
-    // newsapi.calculateTotalPages(totalResults);
     const pagination = createPagination();
+    console.log(newsapi.page);
 
-    pagination.movePageTo(hits.page);
+    pagination.movePageTo(newsapi.page);
     pagination.on('afterMove', ({ page }) => {
       const currentPage = page;
       console.log(currentPage);
+      newsapi.incrementPage();
       rednerNews(currentPage);
     });
 
@@ -90,9 +92,7 @@ async function rednerRage() {
 }
 
 async function rednerNews() {
-  newsapi.incrementPage();
-
-  console.log(sdcdvdscd);
+  console.log(newsapi);
 
   clearPage();
   try {

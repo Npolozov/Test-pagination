@@ -7,8 +7,8 @@ export class NewsApi {
   constructor() {
     this.query = 'cat';
     this.page = 1;
-    this.pageSize = 15;
-    this.totalPages = '';
+    this.totalPages = 0;
+    this.perPage = 40;
     // this.params = {
     //   params: {
     //     language: 'en',
@@ -23,7 +23,6 @@ export class NewsApi {
     const url = `${URL}/?key=${API_KEY}&q=${this.query}&page=${this.page}`;
 
     const { data } = await axios.get(url);
-    console.log(data);
     return data;
   }
 
@@ -51,10 +50,10 @@ export class NewsApi {
     this.page = 1;
   }
 
-  // calculateTotalPages(totalHits) {
-  //   this.totalPages = Math.ceil(totalHits / this.pageSize);
-
-  // }
+  calculateTotalPages(totalHits) {
+    this.totalPages = Math.ceil(totalHits / this.perPage);
+    console.log(this.totalPages);
+  }
 
   get total() {
     return this.totalPages;

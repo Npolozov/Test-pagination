@@ -5,9 +5,9 @@ import { refs } from './refs';
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
 
-export const options = {
+const options = {
   totalItems: 100,
-  itemsPerPage: 15,
+  itemsPerPage: 20,
   visiblePages: 3,
   page: 1,
   centerAlign: true,
