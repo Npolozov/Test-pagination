@@ -71,18 +71,50 @@ const newsapi = new NewsApi();
 window.addEventListener('load', rednerRage);
 rednerNews();
 
-async function rednerRage() {
+function rednerRage() {
   try {
-    const { hits } = await newsapi.fetchRender();
     const pagination = createPagination();
-    console.log(newsapi.page);
 
     pagination.movePageTo(newsapi.page);
     pagination.on('afterMove', ({ page }) => {
       const currentPage = page;
-      console.log(currentPage);
-      newsapi.incrementPage();
-      rednerNews(currentPage);
+
+      if (newsapi.page > currentPage) {
+        if (currentPage === 1) {
+          newsapi.page = 1;
+          rednerNews(currentPage);
+          console.log(currentPage);
+          console.log(newsapi.page);
+          return;
+        } else if (currentPage === 8) {
+          newsapi.page = 8;
+          rednerNews(currentPage);
+          console.log(currentPage);
+          console.log(newsapi.page);
+          return;
+        }
+        newsapi.decrementPage();
+        rednerNews(currentPage);
+        console.log(currentPage);
+        console.log(newsapi.page);
+      } else if (currentPage === 3) {
+        newsapi.page = 3;
+        rednerNews(currentPage);
+        console.log(currentPage);
+        console.log(newsapi.page);
+        return;
+      } else if (currentPage === 10) {
+        newsapi.page = 10;
+        rednerNews(currentPage);
+        console.log(currentPage);
+        console.log(newsapi.page);
+        return;
+      } else {
+        newsapi.incrementPage();
+        rednerNews(currentPage);
+        console.log(currentPage);
+        console.log(newsapi.page);
+      }
     });
 
     // newsapi.calculateTotalPages(totalResults);
@@ -92,8 +124,6 @@ async function rednerRage() {
 }
 
 async function rednerNews() {
-  console.log(newsapi);
-
   clearPage();
   try {
     const { hits } = await newsapi.fetchRender();
