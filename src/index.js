@@ -69,6 +69,7 @@ const newsapi = new NewsApi();
 // }
 
 window.addEventListener('load', rednerRage);
+localPagination();
 rednerNews();
 
 async function rednerRage() {
@@ -82,6 +83,7 @@ async function rednerRage() {
       const currentPage = el.page;
       newsapi.page = currentPage;
       rednerNews(currentPage);
+      localStorage.setItem('pagination', currentPage);
       console.log(currentPage);
       console.log(newsapi.page);
 
@@ -144,4 +146,11 @@ async function rednerNews() {
 
 function clearPage() {
   refs.galleryReg.innerHTML = '';
+}
+
+function localPagination() {
+  const savePagination = localStorage.getItem('pagination');
+  if (savePagination) {
+    newsapi.page = savePagination;
+  }
 }
