@@ -7,6 +7,7 @@ import 'tui-pagination/dist/tui-pagination.css';
 
 const options = {
   totalItems: 100,
+  itemsPerPage: 10,
   visiblePages: 3,
   page: 1,
   centerAlign: true,

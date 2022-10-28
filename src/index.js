@@ -71,50 +71,56 @@ const newsapi = new NewsApi();
 window.addEventListener('load', rednerRage);
 rednerNews();
 
-function rednerRage() {
+async function rednerRage() {
   try {
     const pagination = createPagination();
-
+    const { hits } = await newsapi.fetchRender();
     pagination.movePageTo(newsapi.page);
-    pagination.on('afterMove', ({ page }) => {
-      const currentPage = page;
+    pagination.on('afterMove', el => {
+      console.log(el.page);
 
-      if (newsapi.page > currentPage) {
-        if (currentPage === 1) {
-          newsapi.page = 1;
-          rednerNews(currentPage);
-          console.log(currentPage);
-          console.log(newsapi.page);
-          return;
-        } else if (currentPage === 8) {
-          newsapi.page = 8;
-          rednerNews(currentPage);
-          console.log(currentPage);
-          console.log(newsapi.page);
-          return;
-        }
-        newsapi.decrementPage();
-        rednerNews(currentPage);
-        console.log(currentPage);
-        console.log(newsapi.page);
-      } else if (currentPage === 3) {
-        newsapi.page = 3;
-        rednerNews(currentPage);
-        console.log(currentPage);
-        console.log(newsapi.page);
-        return;
-      } else if (currentPage === 10) {
-        newsapi.page = 10;
-        rednerNews(currentPage);
-        console.log(currentPage);
-        console.log(newsapi.page);
-        return;
-      } else {
-        newsapi.incrementPage();
-        rednerNews(currentPage);
-        console.log(currentPage);
-        console.log(newsapi.page);
-      }
+      const currentPage = el.page;
+      newsapi.page = currentPage;
+      rednerNews(currentPage);
+      console.log(currentPage);
+      console.log(newsapi.page);
+
+      // if (newsapi.page > currentPage) {
+      //   if (currentPage === 1) {
+      //     newsapi.page = 1;
+      //     rednerNews(currentPage);
+      //     console.log(currentPage);
+      //     console.log(newsapi.page);
+      //     return;
+      //   } else if (currentPage === 8) {
+      //     newsapi.page = 8;
+      //     rednerNews(currentPage);
+      //     console.log(currentPage);
+      //     console.log(newsapi.page);
+      //     return;
+      //   }
+      //   newsapi.decrementPage();
+      //   rednerNews(currentPage);
+      //   console.log(currentPage);
+      //   console.log(newsapi.page);
+      // } else if (currentPage === 3) {
+      //   newsapi.page = 3;
+      //   rednerNews(currentPage);
+      //   console.log(currentPage);
+      //   console.log(newsapi.page);
+      //   return;
+      // } else if (currentPage === 10) {
+      //   newsapi.page = 10;
+      //   rednerNews(currentPage);
+      //   console.log(currentPage);
+      //   console.log(newsapi.page);
+      //   return;
+      // } else {
+      //   newsapi.incrementPage();
+      //   rednerNews(currentPage);
+      //   console.log(currentPage);
+      //   console.log(newsapi.page);
+      // }
     });
 
     // newsapi.calculateTotalPages(totalResults);

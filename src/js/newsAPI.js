@@ -20,7 +20,7 @@ export class NewsApi {
   async fetchRender() {
     // const url = `${URL}?q=${this.query}&page=${this.page}&apiKey=${API_KEY}`;
 
-    const url = `${URL}/?key=${API_KEY}&q=${this.query}&page=${this.page}`;
+    const url = `${URL}/?key=${API_KEY}&q=${this.query}&page=${this.page}&per_page=${this.perPage}`;
 
     const { data } = await axios.get(url);
     return data;
